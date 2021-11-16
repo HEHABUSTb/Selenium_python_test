@@ -1,0 +1,18 @@
+pip freeze > requirements.txt
+pip install -r requirements.txt
+pip install pyyaml
+pip install random-word
+
+python -m pytest -v -s --browser=firefox --language=fr
+
+чтобы создать виртуальное окружение в Pycharm python3 -m venv venv 
+потом в наскройках интерпритатора выбрать окружение
+
+pip install pytest==5.1.1
+pip install selenium==3.14.0
+
+pytest -v --tb=line --language=en -m smoke --alluredir=allure_report
+
+pip install allure-pytest
+py.test --alluredir=%allure_result_folder% ./tests
+allure serve %allure_result_folder%
