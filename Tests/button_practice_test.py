@@ -11,3 +11,4 @@ class TestClass:
         page = BasePage(self.browser, link)
         time.sleep(2)
         page.open()
+        assert 1 == 2, 'Allure automate screenshot test'

@@ -3,7 +3,8 @@ pip install -r requirements.txt
 pip install pyyaml
 pip install random-word
 
-python -m pytest -v -s --browser=firefox --language=fr
+python -m pytest -v -s --browser=firefox --language=fr --alluredir=allure_report
+python -m pytest -v -s --alluredir=allure_report
 
 чтобы создать виртуальное окружение в Pycharm python3 -m venv venv 
 потом в наскройках интерпритатора выбрать окружение
