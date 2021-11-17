@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
@@ -12,7 +13,7 @@ link = 'https://rahulshettyacademy.com/AutomationPractice/'
 @pytest.mark.buttons
 class TestClass:
 
-    def test_multi_browser(self):
+    def test_allure_automatically_take_screen_when_fail(self):
         page = BasePage(self.browser, link)
         time.sleep(2)
         page.open()
@@ -66,7 +67,85 @@ class TestClass:
         window_button.click()
         child_window = browser.window_handles[1]
         browser.switch_to.window(child_window)
-        assert 'QA Click Academy' in browser.title, 'New window is not in target'
+        assert 'QA Click Academy' in browser.title, 'New window is not target'
+
+    def test_switch_tab(self, browser):
+        browser.get(link)
+        window_button = browser.find_element(By.CSS_SELECTOR, '#opentab')
+        window_button.click()
+        child_window = browser.window_handles[1]
+        browser.switch_to.window(child_window)
+        assert 'Academy' in browser.title, 'New tab is not target'
+
+    def test_switch_to_alert(self, browser):
+        browser.get(link)
+        name = 'ALERT_TEST'
+        browser.find_element(By.NAME, 'enter-name').send_keys(name)  #Fill text field for alert
+        browser.find_element(By.ID, 'alertbtn').click()  #Push the button to invoke alert
+        alert = browser.switch_to.alert
+        assert name in alert.text, 'f{name} not present in alert'
+        alert.accept()
+
+    def test_switch_to_confirm_alert(self, browser):
+        browser.get(link)
+        browser.find_element(By.ID, 'confirmbtn').click()
+        alert = browser.switch_to.alert
+        alert_text = 'Hello , Are you sure you want to confirm?'
+        assert alert_text == alert.text, f'{alert_text} not equal {alert.text}'
+        alert.dismiss()
+
+    def test_hide_show_example(self, browser):
+        browser.get(link)
+        hide_show_element = browser.find_element(By.NAME, 'show-hide')
+        """
+        Few functions to scroll page until element is not be visible
+            hide_show_element.location_once_scrolled_into_view 
+        or
+            actions = ActionChains(browser)
+            actions.move_to_element(hide_show_element).perform()
+        """
+
+        browser.execute_script("arguments[0].scrollIntoView();", hide_show_element)
+
+        assert hide_show_element.is_displayed(), 'Button is not displayed, when should'
+        hide_button = browser.find_element(By.ID, 'hide-textbox')
+        time.sleep(1)
+        hide_button.click()
+        assert not hide_show_element.is_displayed(), 'Button is displayed, when should not'
+        show_button = browser.find_element(By.ID, 'show-textbox')
+        time.sleep(1)
+        show_button.click()
+        assert hide_show_element.is_displayed(), 'Button is not displayed, when should'
+
+    def test_mouse_hover(self, browser):
+        browser.get(link)
+        action = ActionChains(browser)
+        mouse_menu = browser.find_element(By.ID, 'mousehover')
+        action.move_to_element(mouse_menu).perform()
+        top_mouse_menu = browser.find_element(By.LINK_TEXT, "Top")
+        reload_mouse_menu = browser.find_element(By.LINK_TEXT, 'Reload')
+        time.sleep(1)
+        action.move_to_element(reload_mouse_menu).click().perform()
+        time.sleep(1)
+
+    def test_double_click_action(self, browser):
+        link = 'https://chercher.tech/practice/practice-pop-ups-selenium-webdriver'
+        browser.get(link)
+        action = ActionChains(browser)
+        double_click_button = browser.find_element(By.ID, 'double-click')
+        action.context_click(double_click_button) #right click mouse
+        action.double_click(double_click_button).perform()
+        alert = browser.switch_to.alert
+        alert_message = 'You double clicked me!!!, You got to be kidding me'
+        time.sleep(2)
+        assert alert_message == alert.text, 'Alert text not equal'
+        alert.accept()
+
+
+
+
+
+
 
 
 
