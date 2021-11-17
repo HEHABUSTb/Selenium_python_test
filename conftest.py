@@ -24,6 +24,7 @@ def browser(request):
         print("\nstart chrome browser for test..")
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
         browser = webdriver.Chrome(options=options)
+        browser.maximize_window()
         request.cls.browser = browser
     elif browser_name == 'firefox':
         print("\nstart firefox browser for test..")
@@ -31,6 +32,7 @@ def browser(request):
         profile.set_preference('intl.accept_languages', language)
         profile.update_preferences()
         browser = webdriver.Firefox(firefox_profile=profile)
+        browser.maximize_window()
         request.cls.browser = browser
 
     yield browser
