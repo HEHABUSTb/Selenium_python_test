@@ -52,6 +52,21 @@ class TestClass:
         option3 = 'option3'
         assert option3 == dropdown_selected_value, f'Selected: {dropdown_selected_value}, should be {option3}'
 
+    def test_checkboxes(self, browser):
+        browser.get(link)
+        checkboxes = browser.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"]')
+        for checkbox in checkboxes:
+            checkbox.click()
+            time.sleep(1)
+            assert checkbox.is_selected(), f'Checkbox {checkbox} is not selected'
+
+    def test_switch_window(self, browser):
+        browser.get(link)
+        window_button = browser.find_element(By.CSS_SELECTOR, '#openwindow')
+        window_button.click()
+        child_window = browser.window_handles[1]
+        browser.switch_to.window(child_window)
+        assert 'QA Click Academy' in browser.title, 'New window is not in target'
 
 
 
