@@ -1,5 +1,6 @@
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 
 from Pages.base_page import BasePage
 import time
@@ -39,3 +40,18 @@ class TestClass:
                 time.sleep(1)
                 break
         assert field.get_attribute('value') == 'Russian Federation', 'Selected country not Russia'
+
+    def test_dropdown_select(self, browser):
+        browser.get(link)
+        dropdown = Select(browser.find_element(By.CSS_SELECTOR, '#dropdown-class-example'))
+        dropdown.select_by_visible_text('Option1')
+        dropdown.select_by_index(2)
+        dropdown.select_by_value('option3')
+        dropdown_selected_value = browser.find_element(By.CSS_SELECTOR, '#dropdown-class-example').get_attribute('value')
+        time.sleep(1)
+        option3 = 'option3'
+        assert option3 == dropdown_selected_value, f'Selected: {dropdown_selected_value}, should be {option3}'
+
+
+
+
