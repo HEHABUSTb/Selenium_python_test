@@ -17,3 +17,6 @@ pytest -v --tb=line --language=en -m smoke --alluredir=allure_report
 pip install allure-pytest
 py.test --alluredir=%allure_result_folder% ./tests
 allure serve %allure_result_folder%
+
+CSS Syntax: tagname[attribute='value']
+XPath Syntax: //tagname[@attribute='value']
