@@ -8,6 +8,7 @@ link = 'https://rahulshettyacademy.com/AutomationPractice/'
 
 
 @pytest.mark.usefixtures('browser')
+@pytest.mark.buttons
 class TestClass:
 
     def test_multi_browser(self):
