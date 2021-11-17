@@ -39,5 +39,3 @@ class TestClass:
                 time.sleep(1)
                 break
         assert field.get_attribute('value') == 'Russian Federation', 'Selected country not Russia'
-
-
