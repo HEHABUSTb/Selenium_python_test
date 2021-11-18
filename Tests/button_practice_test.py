@@ -1,10 +1,12 @@
-import pytest
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
 
 from Pages.base_page import BasePage
 import time
+import pytest
 
 link = 'https://rahulshettyacademy.com/AutomationPractice/'
 
@@ -98,11 +100,13 @@ class TestClass:
         browser.get(link)
         hide_show_element = browser.find_element(By.NAME, 'show-hide')
         """
-        Few functions to scroll page until element is not be visible
+        Few functions to scroll page until element is not be visible:
             hide_show_element.location_once_scrolled_into_view 
         or
             actions = ActionChains(browser)
             actions.move_to_element(hide_show_element).perform()
+        or 
+            browser.execute_script("arguments[0].scrollIntoView();", hide_show_element)
         """
 
         browser.execute_script("arguments[0].scrollIntoView();", hide_show_element)
@@ -140,6 +144,32 @@ class TestClass:
         time.sleep(2)
         assert alert_message == alert.text, 'Alert text not equal'
         alert.accept()
+
+    def test_send_file(self, browser):
+        link = 'https://chercher.tech/practice/practice-pop-ups-selenium-webdriver'
+        browser.get(link)
+        choose_button = browser.find_element(By.CSS_SELECTOR, '[name="upload"]')
+        choose_button.send_keys('D:\FlyLera\HSYN\G0018693.JPG') #You dont need click on button to send value
+        path = 'C:\\fakepath\\G0018693.JPG'
+        choose_button_path = choose_button.get_attribute('value')
+        assert path == choose_button_path, f'{path} not = {choose_button_path}, check upload button'
+
+    def test_iframe(self, browser):
+        browser.get(link)
+        browser.switch_to.frame('courses-iframe')
+        blog_button = browser.find_element(By.LINK_TEXT, 'Blog')
+        blog_button.location_once_scrolled_into_view
+        blog_button.click()
+        locator_for_blog_text = (By.CSS_SELECTOR, 'h3[data-css="tve-u-17adea8e9a3"]')
+        WebDriverWait(browser, 4).until(EC.presence_of_element_located((locator_for_blog_text)))
+        assertion_text = browser.find_element(*locator_for_blog_text).text
+        verification_text = 'Our Popular Blog Categories'
+        assert verification_text == assertion_text,\
+            f'{verification_text} not equal {verification_text} check move you to blog page from iframe or not'
+
+
+
+
 
 
 
