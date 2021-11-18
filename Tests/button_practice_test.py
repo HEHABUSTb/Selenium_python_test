@@ -149,7 +149,7 @@ class TestClass:
         link = 'https://chercher.tech/practice/practice-pop-ups-selenium-webdriver'
         browser.get(link)
         choose_button = browser.find_element(By.CSS_SELECTOR, '[name="upload"]')
-        choose_button.send_keys('D:\FlyLera\HSYN\G0018693.JPG') #You dont need click on button to send value
+        choose_button.send_keys('D:\\FlyLera\\HSYN\\G0018693.JPG') #You dont need click on button to send value
         path = 'C:\\fakepath\\G0018693.JPG'
         choose_button_path = choose_button.get_attribute('value')
         assert path == choose_button_path, f'{path} not = {choose_button_path}, check upload button'
