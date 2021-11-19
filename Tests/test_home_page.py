@@ -40,14 +40,13 @@ class Test_Home_Page():
         home_page.clear_name_field()
         home_page.alert_name_is_required()
 
-    def test_guest_can_go_to_shop_page(self):
+    def test_guest_can_go_to_shop_page_and_back_to_home(self):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()
         home_page.check_title(HomePage.title)
+
         shop_page = home_page.go_to_shop()
         shop_page.check_title(ShopPage.title)
 
-    def test_empty(self):
-        pass
-
-
+        home_page = shop_page.go_to_home_page()
+        home_page.check_title(HomePage.title)

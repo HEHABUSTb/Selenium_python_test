@@ -1,5 +1,4 @@
 import pytest
-
 from Pages.shop_page import ShopPage
 
 @pytest.mark.usefixtures('browser')
