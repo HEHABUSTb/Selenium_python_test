@@ -17,7 +17,7 @@ class Test_Home_Page():
         return request.param
 
     @pytest.mark.one
-    def test_get_data(self, get_data):
+    def test_smoke_home_page(self, get_data, browser):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()
         home_page.fill_name_email_password_field(get_data['name'], get_data['email'], get_data['password'])
@@ -25,8 +25,8 @@ class Test_Home_Page():
         home_page.select_gender(get_data['gender'])
         home_page.select_employment_status(get_data['status'])
         home_page.push_submit_button()
-        home_page.alert_success_is_present()
-        time.sleep(2)
+        home_page.alert_success_is_disappeared()
+
 
 
 
