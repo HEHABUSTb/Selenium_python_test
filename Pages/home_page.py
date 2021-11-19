@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 from Pages.base_page import BasePage
-from Pages.shop_page import ShopPage
+
 
 
 import allure
@@ -99,6 +99,7 @@ class HomePage(BasePage):
 
     @allure.step
     def go_to_shop(self):
+        from Pages.shop_page import ShopPage
         button = self.browser.find_element(*HomePage.shop_button)
         button.click()
         return ShopPage(self.browser, ShopPage.link)
