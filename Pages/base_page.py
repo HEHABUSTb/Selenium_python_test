@@ -16,12 +16,17 @@ import allure
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
-        self.browser = webdriver.Chrome()
+        self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
 
-    def quit(self): #delete after development
+    def quit(self):
         self.browser.quit()
+
+    def check_title(self, text):
+        title = self.browser.title
+        assert title == text, f'Page title {title} not equal {text}'
+
 
     def open(self):
         self.browser.get(self.url)

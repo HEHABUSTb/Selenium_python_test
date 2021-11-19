@@ -2,17 +2,23 @@ import time
 
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
 from Pages.base_page import BasePage
+from Pages.shop_page import ShopPage
+
+
 import allure
 import pytest
+
+
+
 
 @pytest.mark.usefixtures('browser')
 class HomePage(BasePage):
 
     link = 'https://rahulshettyacademy.com/angularpractice/'
+    title = 'ProtoCommerce'
 
     home_page_data = [
         {'name': 'Alex', 'email': 'ex@mail.fu', 'password': '123', 'gender': 'Male', 'status': 'student', 'date': '03-01-1992'},
@@ -31,6 +37,7 @@ class HomePage(BasePage):
     close_alert = (By.CSS_SELECTOR, '.close')
     field_date = (By.NAME, 'bday')
     alert_danger = (By.CSS_SELECTOR, '.alert-danger')
+    shop_button = (By.LINK_TEXT, 'Shop')
 
     @allure.step
     def alert_name_is_required(self):
@@ -89,6 +96,13 @@ class HomePage(BasePage):
         send_password.send_keys(password)
         send_password_text = send_password.get_attribute('value')
         assert send_password_text == password, f'Actual name in field {send_password_text} should be {password}'
+
+    @allure.step
+    def go_to_shop(self):
+        button = self.browser.find_element(*HomePage.shop_button)
+        button.click()
+        return ShopPage(self.browser, ShopPage.link)
+
 
     @allure.step
     def push_submit_button(self):

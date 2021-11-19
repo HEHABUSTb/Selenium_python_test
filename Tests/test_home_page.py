@@ -2,10 +2,12 @@ import time
 
 from selenium.webdriver.common.by import By
 from Pages.home_page import HomePage
+from Pages.shop_page import ShopPage
 
 
 
 import pytest
+
 
 
 
@@ -37,3 +39,15 @@ class Test_Home_Page():
         home_page.alert_name_should_be_at_least_2_characters_is_disappeared()
         home_page.clear_name_field()
         home_page.alert_name_is_required()
+
+    def test_guest_can_go_to_shop_page(self):
+        home_page = HomePage(self.browser, HomePage.link)
+        home_page.open()
+        home_page.check_title(HomePage.title)
+        shop_page = home_page.go_to_shop()
+        shop_page.check_title(ShopPage.title)
+
+    def test_empty(self):
+        pass
+
+
