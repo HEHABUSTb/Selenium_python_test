@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
@@ -12,8 +14,8 @@ class HomePage(BasePage):
     link = 'https://rahulshettyacademy.com/angularpractice/'
 
     home_page_data = [
-        {'name': 'Alex', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Male', 'status':'student'},
-        {'name': 'Nina', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Female', 'status':'employed'}
+        {'name': 'Alex', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Male', 'status':'student', 'date':'03-01-1992'},
+        {'name': 'Nina', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Female', 'status':'employed', 'date':'03-01-3002'}
     ]
 
     """locators"""
@@ -26,6 +28,7 @@ class HomePage(BasePage):
     submit_button = (By.CSS_SELECTOR, "input[value='Submit']")
     alert_success_message = (By.CSS_SELECTOR, "[class*='alert-success']")
     close_alert = (By.CSS_SELECTOR, '.close')
+    field_date = (By.NAME, 'bday')
 
     @allure.step
     def alert_success_is_disappeared(self):
@@ -83,6 +86,14 @@ class HomePage(BasePage):
             assert checkboxes[1].is_selected(), f'Checkbox is not selected {status}'
         else:
             raise AssertionError(f'Wrong employment_status {status}')
+
+    @allure.step
+    def send_date_of_birth(self, date_birth):
+        date = self.browser.find_element(*HomePage.field_date)
+        date.send_keys(date_birth)
+        date_value = date.get_attribute('value')
+        reverse_date = f'{date_birth[6:10]}-{date_birth[3:5]}-{date_birth[0:2]}'
+        assert date_value == reverse_date, f'{date_value} not equal {reverse_date}'
 
 
 

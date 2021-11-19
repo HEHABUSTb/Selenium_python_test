@@ -20,6 +20,9 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    def quit(self): #delete after development
+        self.browser.quit()
+
     def open(self):
         self.browser.get(self.url)
 
