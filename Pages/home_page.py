@@ -1,5 +1,6 @@
 import time
 
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
@@ -14,8 +15,8 @@ class HomePage(BasePage):
     link = 'https://rahulshettyacademy.com/angularpractice/'
 
     home_page_data = [
-        {'name': 'Alex', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Male', 'status':'student', 'date':'03-01-1992'},
-        {'name': 'Nina', 'email': 'ex@mail.fu', 'password':'123', 'gender': 'Female', 'status':'employed', 'date':'03-01-3002'}
+        {'name': 'Alex', 'email': 'ex@mail.fu', 'password': '123', 'gender': 'Male', 'status': 'student', 'date': '03-01-1992'},
+        {'name': 'Nina', 'email': 'ex@mail.fu', 'password': '123', 'gender': 'Female', 'status': 'employed', 'date': '03-01-3002'}
     ]
 
     """locators"""
@@ -29,6 +30,27 @@ class HomePage(BasePage):
     alert_success_message = (By.CSS_SELECTOR, "[class*='alert-success']")
     close_alert = (By.CSS_SELECTOR, '.close')
     field_date = (By.NAME, 'bday')
+    alert_danger = (By.CSS_SELECTOR, '.alert-danger')
+
+    @allure.step
+    def alert_name_is_required(self):
+        alert_text = self.browser.find_element(*HomePage.alert_danger).text
+        text = 'Name is required'
+        assert self.is_element_present(*HomePage.alert_danger) and alert_text == text, \
+            f'Alert danger not present or alert text: {alert_text} not equal {text}'
+
+
+    @allure.step
+    def alert_name_should_be_at_least_2_characters_is_present(self):
+        alert_text = self.browser.find_element(*HomePage.alert_danger).text
+        text = 'Name should be at least 2 characters'
+        assert self.is_element_present(*HomePage.alert_danger) and alert_text == text,\
+            f'Alert danger not present or alert text: {alert_text} not equal {text}'
+
+    @allure.step
+    def alert_name_should_be_at_least_2_characters_is_disappeared(self):
+        assert self.is_disappeared(*HomePage.alert_danger)
+
 
     @allure.step
     def alert_success_is_disappeared(self):
@@ -40,6 +62,18 @@ class HomePage(BasePage):
     def alert_success_is_present(self):
         assert self.is_element_present(
             *HomePage.alert_success_message), f'Cant find success message {HomePage.alert_success_message}'
+
+    @allure.step
+    def clear_name_field(self):
+        name_field = self.browser.find_element(*HomePage.name_field)
+        name_field.send_keys(Keys.BACK_SPACE*2)
+        name_field_text = name_field.get_attribute('value')
+        assert name_field_text == '', "Name field is not empty"
+
+    @allure.step
+    def fill_name_field(self, name):
+        name_field = self.browser.find_element(*HomePage.name_field)
+        name_field.send_keys(name)
 
     @allure.step
     def fill_name_email_password_field(self, firstname, email, password):
@@ -94,11 +128,3 @@ class HomePage(BasePage):
         date_value = date.get_attribute('value')
         reverse_date = f'{date_birth[6:10]}-{date_birth[3:5]}-{date_birth[0:2]}'
         assert date_value == reverse_date, f'{date_value} not equal {reverse_date}'
-
-
-
-
-
-
-
-

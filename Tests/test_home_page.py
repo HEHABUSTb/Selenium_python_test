@@ -28,11 +28,12 @@ class Test_Home_Page():
         home_page.push_submit_button()
         home_page.alert_success_is_disappeared()
 
-
-
-
-
-
-
-
-
+    def test_alert_danger_name(self):
+        home_page = HomePage(self.browser, HomePage.link)
+        home_page.open()
+        home_page.fill_name_email_password_field('1', 'email', 'password')
+        home_page.alert_name_should_be_at_least_2_characters_is_present()
+        home_page.fill_name_field('A')
+        home_page.alert_name_should_be_at_least_2_characters_is_disappeared()
+        home_page.clear_name_field()
+        home_page.alert_name_is_required()
