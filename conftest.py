@@ -53,4 +53,3 @@ def pytest_runtest_makereport():
             file_name = report.nodeid.replace("::", "_") + ".png"
             allure.attach(browser.get_screenshot_as_png(), name=file_name,
                           attachment_type=AttachmentType.PNG)
-

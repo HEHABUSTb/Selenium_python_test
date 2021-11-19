@@ -13,8 +13,6 @@ import allure
 
 
 
-
-@pytest.mark.usefixtures('browser')
 class BasePage():
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
