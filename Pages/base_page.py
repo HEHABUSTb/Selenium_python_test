@@ -2,6 +2,7 @@ import inspect
 import logging
 
 from allure_commons.types import AttachmentType
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
@@ -15,7 +16,7 @@ import allure
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
-        self.browser = browser
+        self.browser = webdriver.Chrome()
         self.url = url
         self.browser.implicitly_wait(timeout)
 
