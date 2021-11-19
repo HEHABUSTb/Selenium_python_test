@@ -8,7 +8,6 @@ class ShopPage(BasePage):
     title = 'ProtoCommerce'
 
     def go_to_home_page(self):
-        pass
         home_button = self.browser.find_element(*ShopPageLocators.home_button)
         home_button.click()
 
