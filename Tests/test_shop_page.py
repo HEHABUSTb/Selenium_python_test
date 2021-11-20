@@ -1,9 +1,11 @@
 import time
-
+import allure
 import pytest
 from Pages.shop_page import ShopPage
 
 @pytest.mark.usefixtures('browser')
+@pytest.mark.ShopPage
+@allure.severity(allure.severity_level.NORMAL)
 class Test_Shop_Page():
 
     @pytest.fixture(params=ShopPage.shop_page_data)
@@ -16,7 +18,7 @@ class Test_Shop_Page():
         dict_phones = shop_page.add_phones_in_cart(get_data['phone_model'])
         shop_page.go_to_cart()
         shop_page.check_names_of_phones_in_cart(dict_phones)
-        shop_page.check_names_of_prices_in_cart(dict_phones)
+        shop_page.check_prices_of_phones_in_cart(dict_phones)
         shop_page.push_checkout_button()
         shop_page.choose_location(get_data['country'])
         shop_page.select_checkbox_i_agree()

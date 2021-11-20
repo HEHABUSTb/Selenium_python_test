@@ -21,6 +21,12 @@ class TestClass:
         page.open()
         assert 1 == 2, 'Allure automate screenshot test'
 
+    def test_language_option(self, browser):
+        link = 'https://selenium1py.pythonanywhere.com/'
+        browser.get(link)
+        time.sleep(3)
+
+
     def test_radio_buttons(self, browser):
         browser.get(link)
         buttons = browser.find_elements(By.CSS_SELECTOR, "input[name='radioButton']")

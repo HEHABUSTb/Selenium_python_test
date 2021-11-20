@@ -20,3 +20,6 @@ allure serve %allure_result_folder%
 
 CSS Syntax: tagname[attribute='value']
 XPath Syntax: //tagname[@attribute='value']
+commands for run tests:
+python -m pytest -v --tb=line -m ShopPage --language=en --browser=firefox --alluredir=allure_report
+

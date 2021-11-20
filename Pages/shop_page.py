@@ -1,5 +1,4 @@
 import time
-
 import allure
 import pytest
 from selenium.webdriver.common.by import By
@@ -43,8 +42,7 @@ class ShopPage(BasePage):
         assert len(phones_names_in_cart) == len(dict_phones), f'Items in cart {len(phones_names_in_cart)} should be {len(dict_phones)}'
 
     @allure.step
-    @pytest.mark.xfail(reason='Prices are broken')
-    def check_names_of_prices_in_cart(self, phones_name):
+    def check_prices_of_phones_in_cart(self, phones_name):
         pass
 
     @allure.step
