@@ -23,14 +23,14 @@ def browser(request):
     if browser_name == 'chrome':
         print("\nstart chrome browser for test..")
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
-        browser = webdriver.Chrome(options=options)
+        browser = webdriver.Chrome(executable_path='C:\\chromedriver\\chromedriver.exe', options=options)
         browser.maximize_window()
         request.cls.browser = browser
     elif browser_name == 'firefox':
         print("\nstart firefox browser for test..")
         options = webdriver.FirefoxOptions()
         options.set_preference('intl.accept_languages', language)
-        browser = webdriver.Firefox(options=options)
+        browser = webdriver.Firefox(executable_path='C:\\geckodriver\\geckodriver.exe', options=options)
         browser.maximize_window()
         request.cls.browser = browser
 
