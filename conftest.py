@@ -28,10 +28,9 @@ def browser(request):
         request.cls.browser = browser
     elif browser_name == 'firefox':
         print("\nstart firefox browser for test..")
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference('intl.accept_languages', language)
-        profile.update_preferences()
-        browser = webdriver.Firefox(firefox_profile=profile)
+        options = webdriver.FirefoxOptions()
+        options.set_preference('intl.accept_languages', language)
+        browser = webdriver.Firefox(options=options)
         browser.maximize_window()
         request.cls.browser = browser
 
@@ -42,7 +41,7 @@ def browser(request):
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport():
     """
-        Automatically take screenshot when test fails and attach to allure report
+        #Automatically take screenshot when test fails and attach to allure report
     """
     outcome = yield
     report = outcome.get_result()
@@ -53,3 +52,4 @@ def pytest_runtest_makereport():
             file_name = report.nodeid.replace("::", "_") + ".png"
             allure.attach(browser.get_screenshot_as_png(), name=file_name,
                           attachment_type=AttachmentType.PNG)
+
