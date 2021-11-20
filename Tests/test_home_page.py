@@ -12,6 +12,7 @@ import pytest
 
 
 @pytest.mark.usefixtures('browser')
+@pytest.mark.HomePage
 class Test_Home_Page():
 
     @pytest.fixture(params=HomePage.home_page_data)
@@ -40,7 +41,7 @@ class Test_Home_Page():
         home_page.clear_name_field()
         home_page.alert_name_is_required()
 
-    def test_guest_can_go_to_shop_page_and_back_to_home(self):
+    def test_guest_can_go_to_shop_page_and_back_to_home_page(self):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()
         home_page.check_title(HomePage.title)
