@@ -75,6 +75,7 @@ class TestClass:
         window_button.click()
         child_window = browser.window_handles[1]
         browser.switch_to.window(child_window)
+        time.sleep(3)
         assert 'QA Click Academy' in browser.title, 'New window is not target'
 
     def test_switch_tab(self, browser):
