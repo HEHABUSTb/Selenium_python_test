@@ -13,7 +13,7 @@ link = 'https://rahulshettyacademy.com/AutomationPractice/'
 
 @pytest.mark.usefixtures('browser')
 @pytest.mark.Buttons
-@pytest.mark.smoke
+@pytest.mark.All
 class TestClass:
 
     def test_allure_automatically_take_screen_when_fail(self):

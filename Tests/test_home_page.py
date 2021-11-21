@@ -13,7 +13,7 @@ import pytest
 
 @pytest.mark.usefixtures('browser')
 @pytest.mark.HomePage
-@pytest.mark.smoke
+@pytest.mark.All
 class Test_Home_Page():
 
     @pytest.fixture(params=HomePage.home_page_data)
