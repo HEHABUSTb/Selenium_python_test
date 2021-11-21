@@ -13,13 +13,13 @@ import pytest
 
 @pytest.mark.usefixtures('browser')
 @pytest.mark.HomePage
+@pytest.mark.smoke
 class Test_Home_Page():
 
     @pytest.fixture(params=HomePage.home_page_data)
     def get_data(self, request):
         return request.param
 
-    @pytest.mark.smoke
     def test_smoke_home_page(self, get_data):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()

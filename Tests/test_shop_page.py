@@ -5,6 +5,7 @@ from Pages.shop_page import ShopPage
 
 @pytest.mark.usefixtures('browser')
 @pytest.mark.ShopPage
+@pytest.mark.smoke
 @allure.severity(allure.severity_level.NORMAL)
 class Test_Shop_Page():
 
