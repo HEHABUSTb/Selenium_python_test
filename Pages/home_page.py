@@ -139,7 +139,14 @@ class HomePage(BasePage):
     @allure.step
     def send_date_of_birth(self, date_birth):
         date = self.browser.find_element(*HomePage.field_date)
-        date.send_keys(date_birth)
-        date_value = date.get_attribute('value')
-        reverse_date = f'{date_birth[6:10]}-{date_birth[3:5]}-{date_birth[0:2]}'
-        assert date_value == reverse_date, f'{date_value} not equal {reverse_date}'
+        browser_name  = str(self.browser)
+        if 'firefox' in browser_name:
+            date_birth = f'{date_birth[6:10]}-{date_birth[3:5]}-{date_birth[0:2]}' #for firefox we need to use yyyy-mm-dd
+            date.send_keys(date_birth)
+            date_value = date.get_attribute('value')
+            assert date_value == date_birth, f'{date_value} not equal {date_birth}'
+        else:
+            date.send_keys(date_birth)
+            date_value = date.get_attribute('value')
+            reverse_date = f'{date_birth[6:10]}-{date_birth[3:5]}-{date_birth[0:2]}'
+            assert date_value == reverse_date, f'{date_value} not equal {reverse_date}'

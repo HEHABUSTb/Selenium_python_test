@@ -1,5 +1,6 @@
 import time
 
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from Pages.home_page import HomePage
 from Pages.shop_page import ShopPage
@@ -20,6 +21,7 @@ class Test_Home_Page():
     def get_data(self, request):
         return request.param
 
+    @pytest.mark.one
     def test_smoke_home_page(self, get_data):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()
