@@ -1,3 +1,5 @@
+import os
+
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -153,14 +155,16 @@ class TestClass:
         assert alert_message == alert.text, 'Alert text not equal'
         alert.accept()
 
+    @pytest.mark.one
     def test_send_file(self, browser):
         link = 'https://chercher.tech/practice/practice-pop-ups-selenium-webdriver'
         browser.get(link)
         choose_button = browser.find_element(By.CSS_SELECTOR, '[name="upload"]')
-        choose_button.send_keys('D:\\FlyLera\\HSYN\\G0018693.JPG') #You dont need click on button to send value
-        path = 'C:\\fakepath\\G0018693.JPG'
+        path_example_image = os.path.abspath('TestData/Example.jpg')
+        choose_button.send_keys(path_example_image) #You dont need click on button to send value
+        fake_path = 'C:\\fakepath\\Example.jpg'
         choose_button_path = choose_button.get_attribute('value')
-        assert path == choose_button_path, f'{path} not = {choose_button_path}, check upload button'
+        assert fake_path == choose_button_path, f'{fake_path} not = {choose_button_path}, check upload button'
 
     def test_iframe(self, browser):
         browser.get(link)

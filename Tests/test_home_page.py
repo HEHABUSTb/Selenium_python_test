@@ -21,7 +21,6 @@ class Test_Home_Page():
     def get_data(self, request):
         return request.param
 
-    @pytest.mark.one
     def test_smoke_home_page(self, get_data):
         home_page = HomePage(self.browser, HomePage.link)
         home_page.open()
