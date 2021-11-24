@@ -23,3 +23,5 @@ XPath Syntax: //tagname[@attribute='value']
 commands for run tests:
 python -m pytest -v --tb=line -m ShopPage --language=en --browser=chrome --alluredir=allure_report
 
+python -m pytest -v -m ShopPage --language=en --browser=chrome
+
