@@ -3,6 +3,9 @@ import pytest
 from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+
+
 browser = None
 
 
@@ -22,15 +25,17 @@ def browser(request):
     browser_name = request.config.getoption("browser")
     if browser_name == 'chrome':
         print("\nstart chrome browser for test..")
+        service = Service('C:\\chromedriver\\chromedriver.exe')
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
-        browser = webdriver.Chrome(executable_path='C:\\chromedriver\\chromedriver.exe', options=options)
+        browser = webdriver.Chrome(service=service, options=options)
         browser.maximize_window()
         request.cls.browser = browser
     elif browser_name == 'firefox':
         print("\nstart firefox browser for test..")
+        service = Service('C:\\geckodriver\\geckodriver.exe')
         options = webdriver.FirefoxOptions()
         options.set_preference('intl.accept_languages', language)
-        browser = webdriver.Firefox(executable_path='C:\\geckodriver\\geckodriver.exe', options=options)
+        browser = webdriver.Firefox(service=service, options=options)
         browser.maximize_window()
         request.cls.browser = browser
 
